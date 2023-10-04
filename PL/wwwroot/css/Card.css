@@ -1,0 +1,40 @@
+﻿.container__card {
+    width: 49%;
+    height: 80vh;
+    border-radius: 5px;
+    margin-bottom: 30px;
+}
+
+.container__card .container__poster {
+    width: 50%;
+    height: 100%;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border: 2px solid black;
+    float: left;
+}
+
+.container__card .container__overview {
+    width: 50%;
+    height: 100%;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border: 2px solid black;
+    float: left;
+}
+
+.container__card .container__overview .container__text {
+    width: 100%;
+    height: 80%;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-top-right-radius: 5px;
+    font-size: 11px;
+}
+
+.container__card .container__overview .container__buttons {
+    width: 100%;
+    height: 20%;
+    border-bottom-right-radius: 5px;
+}
+

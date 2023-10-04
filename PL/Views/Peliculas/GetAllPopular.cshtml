@@ -1,0 +1,56 @@
+﻿@model Root
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<link href="@Url.Content("~/css/Card.css")" rel="stylesheet" />
+<h2 class="text-center">Peliculas populares</h2>
+<hr />
+<br />
+
+@if(Model.Objects.Count > 0)
+{
+
+        <nav aria-label="Page navigation example">
+            <ul class="pagination" style="margin-left: 35%;">
+                <li class="page-item"><a class="page-link" href="@Url.Action("GetAllPopular", "Peliculas", new{page = ViewBag.CurrentPage - 1})">Previous</a></li>
+                <li class="page-item"><a class="page-link" href="@Url.Action("GetAllPopular", "Peliculas", new{page = 1})">1</a></li>
+                <li class="page-item"><a class="page-link" href="@Url.Action("GetAllPopular", "Peliculas", new{page = 2})">2</a></li>
+                <li class="page-item"><a class="page-link" href="@Url.Action("GetAllPopular", "Peliculas", new{page = 3})">3</a></li>
+                <li class="page-item"><a class="page-link" href="@Url.Action("GetAllPopular", "Peliculas", new{page = ViewBag.CurrentPage + 1})">Next</a></li>
+            </ul>
+        </nav>
+
+    <div class="container">      
+
+        <div class="row">
+            @foreach (Movie movie in Model.Objects)
+            {
+                <div class="container__card">
+                    <div class="container__poster" style="background-image: url('@movie.poster_path'); background-size: 100% 100%; background-repeat: no-repeat;">
+                    </div>
+
+                    <div class="container__overview">
+                        <div class="container__text">
+                            <h6 class="text-center">@movie.title</h6>
+                            <p>@movie.overview</p>
+                        </div>
+
+                        <div class="container__buttons bg-dark text-center">
+                            <a class="btn btn-danger" style="margin-top: 20px;" href="@Url.Action("AddFavoritos", "Peliculas", new{idMovie = movie.id, agregar = true})">Favoritos <i id="icon__favorities" class="fa-regular fa-heart" style="color: #ffffff;"></i></a>
+                            <a class="btn btn-primary" style="margin-top: 20px;">Ver <i class="fa-regular fa-circle-play" style="color: #ffffff;"></i></a>
+                        </div>
+
+                    </div>
+                    
+                </div>
+            }            
+        </div>
+    </div>
+} else
+{
+    <div class="container alert alert-danger">
+        No se encontraron datos en la API.
+    </div>
+}
