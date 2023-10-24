@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/PL.styles.css" asp-append-version="true" />
 
+        <script src="~/lib/jquery/dist/jquery.min.js"></script>
+
     <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
 
 </head>
@@ -33,7 +35,33 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Peliculas" asp-action="GetAllFavoritos">Favoritos</a>
+                        </li
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Cine" asp-action="GetAll">Cine</a>
                         </li>
+                         <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Cine" asp-action="GetAllEstadistic">Estadistica</a>
+                        </li>
+                         <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Dulceria" asp-action="Dulceria">Dulceria</a>
+                        </li>
+                         <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Dulceria" asp-action="GetAll">Dulceria - GetAll</a>
+                        </li>
+
+                        @if (Context.Session.GetString("Carrito") == null)
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-secondary" asp-area="" asp-controller="Dulceria" asp-action="Carrito"><i class="fa-solid fa-cart-shopping" style="color: black;"> </i>()</a>
+                                </li>
+                            }
+                            else
+                            {
+                                var ventaSession = Newtonsoft.Json.JsonConvert.DeserializeObject<List<object>>(Context.Session.GetString("Carrito"));
+                                <li class="nav-item">
+                                    <a class="nav-link text-secondary" style="color: green;" asp-area="" asp-controller="Dulceria" asp-action="Carrito"><i class="fa-solid fa-cart-shopping" style="color: black;"> </i>(@ventaSession.Count)</a>
+                                </li>
+                            }
                     </ul>
                 </div>
             </div>
@@ -50,7 +78,6 @@
             &copy; 2023 - PL - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)

@@ -1,0 +1,186 @@
+﻿body {
+    background-image: url("https://dynamic-media-cdn.tripadvisor.com/media/photo-o/13/bb/ae/a3/cine-royal-khalidiyah.jpg?w=1200&h=-1&s=1");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
+
+.section__container {
+    margin: 50px auto;
+    width: 60%;
+}
+
+.login__container {
+    margin-bottom: 50px;
+    width: 50%;
+    border-radius: 5px;
+    float: left;
+    box-shadow: -12px 0px 10px 5px red;
+}
+
+    .login__container .title {
+        color: white;
+        padding: 15px;
+        border-top-left-radius: 5px;
+    }
+
+    .login__container .inputs label {
+        margin-top: 10px;
+    }
+
+    .login__container .inputs label:hover {
+        cursor: pointer;
+    }
+
+    .login__container .inputs {
+        padding: 15px;
+        color: white;
+    }
+
+        .login__container .inputs input {
+            margin-top: 5px;
+        }
+
+    .login__container .buttons {
+        display: flex;
+        padding: 10px;
+        justify-content: center;
+    }
+
+    .login__container .hiperlinks {
+        display: flex;
+        padding: 10px;
+        justify-content: center;
+        border-bottom-left-radius: 5px;
+    }
+
+
+
+
+.register__container {
+    margin-bottom: 50px;
+    width: 50%;
+    border-radius: 5px;
+    float: left;
+    box-shadow: 12px 0px 10px 5px blue;
+}
+
+    .register__container .title {
+        color: white;
+        padding: 15px;
+        border-top-right-radius: 5px;
+    }
+
+    .register__container .text {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 63.3vh;
+        color: white;
+        border-bottom-right-radius: 5px;
+        padding: 10px;
+    }
+
+    .register__container .text button {
+        margin-top: 15px;
+    }
+
+    .register__container .inputs {
+        padding: 15px;
+        color: white;
+    }
+
+
+
+
+
+
+
+
+
+.section__container2 {
+    margin: 10px auto;
+    width: 60%;
+}
+
+
+    .section__container2 .register__container {
+        margin-bottom: 50px;
+        width: 50%;
+        border-radius: 5px;
+        float: left;
+        box-shadow: 12px 0px 10px 5px blue;
+    }
+
+        .section__container2 .register__container .title {
+            color: white;
+            padding: 5px;
+            border-top-left-radius: 5px;
+        }
+
+        .section__container2 .register__container .inputs label {
+            margin-top: 8px;
+        }
+
+            .section__container2 .register__container .inputs label:hover {
+                cursor: pointer;
+            }
+
+        .section__container2 .register__container .inputs {
+            padding: 10px;
+            color: white;
+        }
+
+            .section__container2 .register__container .inputs input {
+                margin-top: 5px;
+            }
+
+        .section__container2 .register__container .buttons {
+            display: flex;
+            padding: 10px;
+            justify-content: center;
+        }
+
+        .section__container2 .register__container .hiperlinks {
+            display: flex;
+            padding: 10px;
+            justify-content: center;
+            border-bottom-left-radius: 5px;
+        }
+
+
+
+
+    .section__container2 .login__container {
+        margin-bottom: 50px;
+        width: 50%;
+        border-radius: 5px;
+        float: left;
+        box-shadow: -12px 0px 10px 5px red;
+    }
+
+        .section__container2 .login__container .title {
+            color: white;
+            padding: 15px;
+            border-top-right-radius: 5px;
+        }
+
+        .section__container2 .login__container .text {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 72.5vh;
+            color: white;
+            border-bottom-right-radius: 5px;
+            padding: 10px;
+        }
+
+            .section__container2 .login__container .text button {
+                margin-top: 15px;
+            }
+
+        .section__container2 .login__container .inputs {
+            padding: 15px;
+            color: white;
+        }

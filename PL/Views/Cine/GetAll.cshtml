@@ -1,0 +1,46 @@
+﻿@model ML.Cine
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<h2 class="text-center">Cines</h2>
+<hr /><br />
+<a class="btn btn-success" href="@Url.Action("Form", "Cine")">Registrar un nuevo cine</a>
+<hr />
+<h3 class="text-center">Cines registrados</h3>
+<hr />
+@if (Model.Cines.Count > 0)
+{
+    <table class="table table-hover">
+        <thead class="table-dark">
+        <th>Id</th>
+        <th>Nombre</th>
+        <th>Direccion</th>
+        <th>Zona</th>
+        <th>Ventas</th>
+        <th>Editar</th>
+        <th>Borrar</th>
+        </thead>
+
+        <tbody>
+            @foreach (ML.Cine cine in Model.Cines)
+            {
+                <tr>
+                    <td>@cine.Id</td>
+                    <td>@cine.Nombre</td>
+                    <td>@cine.Direccion</td>
+                    <td>@cine.Zona.Nombre</td>
+                    <td>@cine.Ventas</td>
+                    <td><a class="btn btn-primary" href="@Url.Action("Form", "Cine", new{idCine = cine.Id})"><i class="fa-solid fa-pen-to-square" style="color: #ffffff;"></i></a></td>
+                    <td><a class="btn btn-danger" href="@Url.Action("Delete", "Cine", new{idCine = cine.Id})"><i class="fa-solid fa-trash" style="color: #ffffff;"></i></a></td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+} else
+{
+    <div class="alert alert-danger">No se encontraron datos</div>
+}

@@ -1,0 +1,243 @@
+﻿@model ML.Cine
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<style>
+    #map {
+        width: 75vh;
+        height: 75vh;
+        border: 2px solid blue;
+    }
+</style>
+
+<h2 class="text-center">Estadistica de cines</h2>
+<hr />
+<br />
+
+
+@if (Model.Cines.Count > 0)
+{
+
+    <div class="row">
+        <div class="col-6">
+            <h3 class="text-center">Grafica</h3>
+            <center>
+                <div id="chartContainer" style="width: 100%; height: 75vh;"> </div>
+            </center>
+        </div>
+
+        <div class="col-6">
+            <h3 class="text-center">Ubicaciones de los cines</h3>
+            <center>
+                <!--  mapa de google maps  -->
+                <div id="map"></div>
+            </center>
+
+        </div>
+
+    </div>
+
+
+}
+else
+{
+    <div>
+        No se encontraron cines de los cuales mostrar una estadistica.
+    </div>
+}
+
+
+
+
+@section scripts{
+    <script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+    <script src="https://cdn.canvasjs.com/jquery.canvasjs.min.js"></script>
+    <script>
+        (g => { var h, a, k, p = "The Google Maps JavaScript API", c = "google", l = "importLibrary", q = "__ib__", m = document, b = window; b = b[c] || (b[c] = {}); var d = b.maps || (b.maps = {}), r = new Set, e = new URLSearchParams, u = () => h || (h = new Promise(async (f, n) => { await (a = m.createElement("script")); e.set("libraries", [...r] + ""); for (k in g) e.set(k.replace(/[A-Z]/g, t => "_" + t[0].toLowerCase()), g[k]); e.set("callback", c + ".maps." + q); a.src = `https://maps.${c}apis.com/maps/api/js?` + e; d[q] = f; a.onerror = () => h = n(Error(p + " could not load.")); a.nonce = m.querySelector("script[nonce]")?.nonce || ""; m.head.append(a) })); d[l] ? console.warn(p + " only loads once. Ignoring:", g) : d[l] = (f, ...n) => r.add(f) && u().then(() => d[l](f, ...n)) })
+            ({ key: "AIzaSyCSKBDdPPlfca_zTwyxKiicRQn1qfgRjLw", v: "beta" });</script>
+
+
+
+    <script>
+        // Initialize and add the map
+        let map;
+
+
+        async function initMap() {
+
+            // The location of Uluru
+            var position = { lat: -25.344, lng: 131.031 };
+            // Request needed libraries.
+            var { Map } = await google.maps.importLibrary("maps");
+            var { AdvancedMarkerElement } = await google.maps.importLibrary("marker");
+
+            // The map, centered at Uluru
+            map = new Map(document.getElementById("map"), {
+                zoom: 4,
+                center: position,
+                mapId: "DEMO_MAP_ID",
+            });
+
+
+        }
+
+        initMap();
+
+
+        // Obtenemos las direcciones
+        var directions_array = [];
+        var cine_data_array = [];
+
+        // Vatiables para obtener las ventas totales de los cines por zona
+        var totalVentasGlobales = 0;
+        var totalVentasNorte = 0;
+        var totalVentasSur = 0;
+        var totalVentasEste = 0;
+        var totalVentasOeste = 0;
+
+        @foreach (ML.Cine cine in Model.Cines)
+        {
+            <text>
+                directions_array.push(["@cine.Direccion.ToString()"]);
+            cine_data_array.push(["Cine: @cine.Nombre \n Direccion: @cine.Direccion \n Zona: @cine.Zona.Nombre \n Ventas: @cine.Ventas"]);
+
+            totalVentasGlobales += @cine.Ventas;
+                @if (cine.Zona.Nombre == "Norte")
+                {
+                    <text>
+                    totalVentasNorte += @cine.Ventas;
+                    </text>
+                }
+                else if (cine.Zona.Nombre == "Sur")
+                {
+                    <text>
+                    totalVentasSur += @cine.Ventas;
+                    </text>
+                }
+                else if (cine.Zona.Nombre == "Este")
+                {
+                    <text>
+                    totalVentasEste += @cine.Ventas;
+                    </text>
+                }
+                else if (cine.Zona.Nombre == "Oeste")
+                {
+                    <text>
+                    totalVentasOeste += @cine.Ventas;
+                    </text>
+                }
+            </text>
+        }
+
+        var porcentajeNorte = (totalVentasNorte / totalVentasGlobales) * 100;
+        var porcentajeSur = (totalVentasSur / totalVentasGlobales) * 100;
+        var porcentajeEste = (totalVentasEste / totalVentasGlobales) * 100;
+        var porcentajeOeste = (totalVentasOeste / totalVentasGlobales) * 100;
+
+        console.log("Este es el porcentaje que se vendio en la zona norte: " + porcentajeNorte);
+        console.log("Este es el porcentaje que se vendio en la zona sur: " + porcentajeSur);
+        console.log("Este es el porcentaje que se vendio en la zona este: " + porcentajeEste);
+        console.log("Este es el porcentaje que se vendio en la zona oeste: " + porcentajeOeste);
+
+        // Se imprime el arreglo de las direcciones
+        console.log(directions_array.length);
+
+
+
+
+        // Función para crear un marcador con su infoWindow
+        function createMarker(map, position, title, content) {
+            var marker = new google.maps.Marker({
+                map: map,
+                position: position,
+                title: title,
+            });
+
+            var infoWindow = new google.maps.InfoWindow({
+                content: content,
+                position: position,
+            });
+
+            google.maps.event.addListener(marker, 'click', function () {
+                if (infoWindow.opened) {
+                    infoWindow.close();
+                    infoWindow.opened = false;
+                    console.log("info window cerrado");
+                } else {
+                    infoWindow.open(map);
+                    infoWindow.opened = true;
+                    console.log("info window abierto");
+                }
+            });
+
+            return marker;
+        }
+
+        // En la función PutMarkers, se llamar a createMarker en lugar de crear el marcador directamente
+        async function PutMarkers(directions, dataCine) {
+            const { Map } = await google.maps.importLibrary("maps");
+            const { AdvancedMarkerElement } = await google.maps.importLibrary("marker");
+
+            var geocoder = new google.maps.Geocoder();
+
+            for (var i = 0; i < directions.length; i++) {
+                let data = dataCine[i] + " posicion: " + i;
+                console.log(data);
+
+                geocoder.geocode({
+                    "address": directions[i].toString()
+                }, function (results, status) {
+                    if (status == google.maps.GeocoderStatus.OK) {
+                        var latitudActual = results[0].geometry.location.lat();
+                        var longitudActual = results[0].geometry.location.lng();
+                        var position = { lat: latitudActual, lng: longitudActual };
+
+                        // Llama a la función createMarker para crear el marcador y la infoWindow
+                        createMarker(map, position, results[0].formatted_address, data.toString());
+                    }
+                });
+            }
+        }
+
+        PutMarkers(directions_array, cine_data_array);
+
+
+        // Grafica de canvas
+        window.onload = function () {
+
+            var options = {
+                title: {
+                    text: "Ventas totales"
+                },
+                subtitles: [{
+                    text: "Hasta Octubre 09, 2023"
+                }],
+                animationEnabled: true,
+                data: [{
+                    type: "pie",
+                    startAngle: 40,
+                    toolTipContent: "<b>{label}</b>: {y}%",
+                    showInLegend: "true",
+                    legendText: "{label}",
+                    indexLabelFontSize: 16,
+                    indexLabel: "{label} - {y}%",
+                    dataPoints: [
+                        { y: porcentajeNorte.toFixed(2), label: "Zona norte" },
+                        { y: porcentajeSur.toFixed(2), label: "Zona sur" },
+                        { y: porcentajeEste.toFixed(2), label: "Zona este" },
+                        { y: porcentajeOeste.toFixed(2), label: "Zona oeste" },
+                    ]
+                }]
+            };
+            $("#chartContainer").CanvasJSChart(options);
+
+        }
+
+
+    </script>
+
+
+    }

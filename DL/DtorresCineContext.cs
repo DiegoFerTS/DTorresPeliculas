@@ -17,6 +17,10 @@ public partial class DtorresCineContext : DbContext
 
     public virtual DbSet<Cine> Cines { get; set; }
 
+    public virtual DbSet<Dulcerium> Dulceria { get; set; }
+
+    public virtual DbSet<Usuario> Usuarios { get; set; }
+
     public virtual DbSet<Zona> Zonas { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -41,6 +45,44 @@ public partial class DtorresCineContext : DbContext
             entity.HasOne(d => d.IdZonaNavigation).WithMany(p => p.Cines)
                 .HasForeignKey(d => d.IdZona)
                 .HasConstraintName("FK__Cine__IdZona__1273C1CD");
+        });
+
+        modelBuilder.Entity<Dulcerium>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__Dulceria__3214EC073BBD7516");
+
+            entity.Property(e => e.Descripcion)
+                .HasMaxLength(254)
+                .IsUnicode(false);
+            entity.Property(e => e.Imagen).IsUnicode(false);
+            entity.Property(e => e.Nombre)
+                .HasMaxLength(100)
+                .IsUnicode(false);
+            entity.Property(e => e.Precio).HasColumnType("decimal(18, 0)");
+        });
+
+        modelBuilder.Entity<Usuario>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__Usuario__3214EC07DFD47F82");
+
+            entity.ToTable("Usuario");
+
+            entity.HasIndex(e => e.Correo, "UQ__Usuario__60695A19F052B5C9").IsUnique();
+
+            entity.HasIndex(e => e.UserName, "UQ__Usuario__C9F284566166FA36").IsUnique();
+
+            entity.Property(e => e.Correo)
+                .HasMaxLength(100)
+                .IsUnicode(false);
+            entity.Property(e => e.Nombre)
+                .HasMaxLength(100)
+                .IsUnicode(false);
+            entity.Property(e => e.Password)
+                .HasMaxLength(254)
+                .IsUnicode(false);
+            entity.Property(e => e.UserName)
+                .HasMaxLength(100)
+                .IsUnicode(false);
         });
 
         modelBuilder.Entity<Zona>(entity =>

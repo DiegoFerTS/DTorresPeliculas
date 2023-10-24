@@ -1,0 +1,234 @@
+﻿@model ML.Venta
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<h2 class="text-center">Carrito</h2>
+<hr />
+<br />
+
+@if (Model.Carrito.Count > 0)
+{
+    <style>
+        .modal {
+            display: none; /* Por defecto, estará oculto */
+            position: fixed; /* Posición fija */
+            z-index: 1; /* Se situará por encima de otros elementos de la página*/
+            padding-top: 20px; /* El contenido estará situado a 200px de la parte superior */
+            left: 0;
+            top: 0;
+            width: 100%; /* Ancho completo */
+            height: 100%; /* Algura completa */
+            overflow: auto; /* Se activará el scroll si es necesario */
+            background-color: rgba(255,255,255,0.5); /* Color negro con opacidad del 50% */
+            border-radius: 5px;
+        }
+
+        .content__modal {
+            position: relative; /* Relativo con respecto al contenedor -modal- */
+            margin: auto; /* Centrada */
+            border-radius: 5px;
+            padding: 20px;
+            width: 40%;
+        }
+
+        .modal2 {
+            display: none; /* Por defecto, estará oculto */
+            position: fixed; /* Posición fija */
+            z-index: 1; /* Se situará por encima de otros elementos de la página*/
+            padding-top: 20px; /* El contenido estará situado a 200px de la parte superior */
+            left: 0;
+            top: 0;
+            width: 100%; /* Ancho completo */
+            height: 100%; /* Algura completa */
+            overflow: auto; /* Se activará el scroll si es necesario */
+            background-color: rgba(255,255,255,0.5); /* Color negro con opacidad del 50% */
+            border-radius: 5px;
+        }
+
+            .modal2 .content__modal {
+                position: relative; /* Relativo con respecto al contenedor -modal- */
+                margin: auto; /* Centrada */
+                border-radius: 5px;
+                padding: 20px;
+                width: 40%;
+            }
+    </style>
+
+
+    <div>
+        <a class="btn btn-danger" href="@Url.Action("LimpiarCarrito", "Dulceria")">Limpiar carrito</a>
+
+        <button class="btn btn-dark" onclick="MostrarModal(@Model.Total);"><i class="fa-solid fa-credit-card" style="color: #ffffff;"></i> Comprar </button>
+    </div>
+
+    <br />
+    <br />
+
+    <table class="table table-hover">
+        <thead class="table-dark text-center">
+        <th>Id</th>
+        <th>Imagen</th>
+        <th>Nombre</th>
+        <th>Precio x Unidad</th>
+        <th>Cantidad</th>
+        <th>Agregar</th>
+        <th>Descripcion</th>
+        <th>Subtotal</th>
+        <th>Quitar</th>
+        </thead>
+
+        <tbody>
+            @foreach (ML.Dulceria producto in Model.Carrito)
+            {
+                <tr>
+                    <td>@producto.Id</td>
+                    <td><img src="@producto.Imagen" style="width: 70px; height: 90px;"></td>
+                    <td>@producto.Nombre</td>
+                    <td>@producto.Precio</td>
+                    <td>@producto.Cantidad</td>
+                    <td><a class="btn btn-success" href="@Url.Action("AgregarProducto", "Dulceria", new{idProducto = @producto.Id})">+</a></td>
+                    <td>@producto.Descripcion</td>
+                    <th>@(producto.Cantidad * producto.Precio)</th>
+                    <th><a href="@Url.Action("QuitarProducto", "Dulceria", new{idProducto = @producto.Id})"><i class="fa-solid fa-trash-can" style="color: #cc0000;"></i></a></th>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <br />
+    <br />
+    <label for="total">Total a pagar:</label>
+    <div class="input-group mb-3">
+        <span class="input-group-text">$</span>
+        <input id="total" type="text" class="form-control" aria-label="Amount (to the nearest dollar)" readonly value="@Model.Total">
+        <span class="input-group-text">.00</span>
+    </div>
+
+
+    @using (Html.BeginForm("CrearPdf", "Dulceria", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <div id="modal" class="modal">
+
+            <div class="content__modal bg-secondary" style="position: relative; margin: auto; padding: 20px;  width: 60%;">
+
+                <button class="cerrar btn btn-danger" onclick="cerrarModal();">X</button>
+                <b><p class="text-center" style="text-align: center; font-size: 18px"> Realizar compra </p></b>
+                <br>
+                <div class="input-group mb-3">
+
+                    <div class="input-group-prepend">
+
+                        <span class="input-group-text"> Total $ </span>
+
+                    </div>
+                    <input id="TotalPago" name="TotalPago" type="text" class="form-control" aria-label="Amount(to the nearest dollar)" readonly>
+                    <div class="input-group-append">
+
+                        <span class="input-group-text"> .00 </span>
+
+                    </div>
+
+                </div>
+                <br>
+                <center>
+
+                    <label for="NumeroTarjeta">Numero de Tarjeta</label>
+                    <input id="NumeroTarjeta" name="NumeroTarjeta" type='text' class='form-control'>
+                    <label for="Direccion">Direccion</label>
+                    <textarea id="Direccion" name="Direccion" type='text' class='form-control'> </textarea>
+                    <label for="Referencia">Referencia</label>
+                    <textarea id="Referencia" name="Referencia" type='text' class='form-control'>  </textarea>
+
+                </center>
+                <br>
+                <center>
+
+                    <a class="btn btn-primary" onclick="MostrarModal2();">Comprar</a>
+
+                </center>
+
+            </div>
+
+        </div>
+
+        <div id="modal2" class="modal2">
+            <div class="content__modal" style="position: relative; margin: auto; padding: 20px; width: 100%;">
+
+
+                <div class="content__modal bg-secondary" style="position: relative; margin: auto; padding: 20px;">
+                    
+                    <button class="cerrar btn btn-danger" onclick="cerrarModal2();">X</button>
+                    <b><p class="text-center" style="text-align: center; font-size: 18px"> Compra realizada </p></b>
+                    <br>
+
+
+                    <div class="text-center">
+                        
+                        <button class="btn btn-primary" type="submit">Descargar resumen</button>
+                        <br><br>
+
+                       <img src="https://i.gifer.com/origin/e2/e203e9712a8418b4785faa45a6ec3d60.gif" style="width: 100%; height: 30vh;">
+                        
+                    </div>
+
+                    <br>
+                   <center>
+                        
+                        <p>Mas tarde recibiras la fecha de tu entrega.</p>
+                        
+                    </center>
+                    
+                </div>
+
+            </div>
+        </div>
+    }
+
+
+}
+else
+{
+    <div class="alert alert-danger">No hay productos añadidos al carrito.</div>
+}
+
+<script>
+    var modal = document.getElementById("modal");
+    var modal2 = document.getElementById("modal2");
+
+    // Cuando el usuario hace clic en el botón, se abre la ventana
+    function MostrarModal(total) {
+        modal.style.display = "block";
+        document.getElementById("TotalPago").value = total;
+    }
+
+    // Cuando el usuario hace clic en el botón, se abre la ventana
+    function MostrarModal2() {
+        modal.style.display = "none";
+        modal2.style.display = "block";
+    }
+
+    // Si el usuario hace clic en la x, la ventana se cierra
+    function cerrarModal() {
+        modal.style.display = "none";
+    }
+    // Si el usuario hace clic fuera de la ventana, se cierra.
+    window.addEventListener("click", function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    });
+
+    // Si el usuario hace clic en la x, la ventana se cierra
+    function cerrarModal2() {
+        modal2.style.display = "none";
+    }
+    // Si el usuario hace clic fuera de la ventana, se cierra.
+    window.addEventListener("click", function (event) {
+        if (event.target == modal2) {
+            modal2.style.display = "none";
+        }
+    });
+</script>

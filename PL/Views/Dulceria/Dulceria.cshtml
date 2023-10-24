@@ -1,0 +1,656 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<style>
+    .card__container {
+        margin-bottom: 30px;
+    }
+
+    .fa-cart-shopping:hover {
+        cursor: pointer;
+    }
+
+    .buttons__container {
+        padding-top: 7px;
+        display: flex;
+        align-content: center;
+        align-items: center;
+        justify-content: center;
+        justify-items: center;
+    }
+
+    .shopping {
+        float: left;
+        height: 100%;
+        margin-top: 5px;
+    }
+
+    .texto__shopping {
+        height: 100%;
+        float: left;
+        color: white;
+        margin-top: 5px;
+        font-size: 20px;
+    }
+
+    .modal {
+        display: none; /* Por defecto, estará oculto */
+        position: fixed; /* Posición fija */
+        z-index: 1; /* Se situará por encima de otros elementos de la página*/
+        padding-top: 20px; /* El contenido estará situado a 200px de la parte superior */
+        left: 0;
+        top: 0;
+        width: 100%; /* Ancho completo */
+        height: 100%; /* Algura completa */
+        overflow: auto; /* Se activará el scroll si es necesario */
+        background-color: rgba(0,0,0,0.5); /* Color negro con opacidad del 50% */
+        border-radius: 5px;
+    }
+
+    .content__modal {
+        position: relative; /* Relativo con respecto al contenedor -modal- */
+        margin: auto; /* Centrada */
+        border-radius: 5px;
+        padding: 20px;
+        width: 40%;
+    }
+
+</style>
+
+<div class="container">
+
+    <h2 class="text-center">Dulceria</h2>
+    <hr /> <br />
+
+    <div class="row">
+        <div class="col-4">
+            <div class="card__container" style="height: 100vh; border-radius: 5px; border: 3px solid black;">
+                <div class="card__image" style="width: 100%;
+                                                height: 50%;
+                                                background-image: url('https://www.sdpnoticias.com/resizer/MIMZX4Dn21f-rGsDM7Ar4-zqUmg=/arc-photo-sdpnoticias/arc2-prod/public/TOL4VQ4ZF5DNNH3QPXSWHFTH34.webp');
+                                                background-repeat: no-repeat;
+                                                background-size: 100% 100%;
+                                                border: 1px solid black;"> </div>
+                <div class="title__container" style="width: 100%; height: 10%; color: white; background: #E30000; padding: 10px;">
+                    <h2 class="text-center">Combo 1</h2>
+                </div>
+                <div class="info_container" style="width: 100%; height: 30%; color: white; background: #FF0000; padding: 10px;">
+                    <p>
+                        Precio: $120 pesos
+                        <br /><br />
+                        Descripcion: 1 Bote grande de palomitas y 1 refresco grande.
+                    </p>
+                </div>
+                <div class="buttons__container text-center" style="width: 100%; height: 10%; background: #001397;">
+                    <div class="shopping">
+                        <i class="fa-solid fa-cart-shopping" style="color: #ffffff; width: 40px; height: 40px;" onclick="MostrarModalCombo12('120', 'https://www.sdpnoticias.com/resizer/MIMZX4Dn21f-rGsDM7Ar4-zqUmg=/arc-photo-sdpnoticias/arc2-prod/public/TOL4VQ4ZF5DNNH3QPXSWHFTH34.webp');"> </i>
+                    </div>
+                    <div class="texto__shopping">
+                        <p>Agregar al carrito</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-4">
+            <div class="card__container" style="height: 100vh; border-radius: 5px; border: 3px solid black;">
+                <div class="card__image" style="width: 100%;
+                                                height: 50%;
+                                                background-image: url('http://www.hotelesyresorts.coomeva.com.co/imagenes/galeria/img106144.jpg');
+                                                background-repeat: no-repeat;
+                                                background-size: 100% 100%;
+                                                border: 1px solid black;"> </div>
+                <div class="title__container" style="width: 100%; height: 10%; color: white; background: #E30000; padding: 10px;">
+                    <h2 class="text-center">Combo 2</h2>
+                </div>
+                <div class="info_container" style="width: 100%; height: 30%; color: white; background: #FF0000; padding: 10px;">
+                    <p>
+                        Precio: $200 pesos
+                        <br /><br />
+                        Descripcion: 1 Bote grande de palomitas, 1 refresco mediano y 1 chocolate.
+                    </p>
+                </div>
+                <div class="buttons__container text-center" style="width: 100%; height: 10%; background: #001397;">
+                    <div class="shopping">
+                        <i class="fa-solid fa-cart-shopping" style="color: #ffffff; width: 40px; height: 40px;" onclick="MostrarModalCombo12('200', 'http://www.hotelesyresorts.coomeva.com.co/imagenes/galeria/img106144.jpg');"> </i>
+                    </div>
+                    <div class="texto__shopping">
+                        <p>Agregar al carrito</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-4">
+            <div class="card__container" style="height: 100vh; border-radius: 5px; border: 3px solid black;">
+                <div class="card__image" style="width: 100%;
+                                                height: 50%;
+                                                background-image: url('http://www.hotelesyresorts.coomeva.com.co/imagenes/galeria/img106145.jpg');
+                                                background-repeat: no-repeat;
+                                                background-size: 100% 100%;
+                                                border: 1px solid black;"> </div>
+                <div class="title__container" style="width: 100%; height: 10%; color: white; background: #E30000; padding: 10px;">
+                    <h2 class="text-center">Combo 3</h2>
+                </div>
+                <div class="info_container" style="width: 100%; height: 30%; color: white; background: #FF0000; padding: 10px;">
+                    <p>
+                        Precio: $250 pesos
+                        <br /><br />
+                        Descripcion: 1 Bote mediano de palomitas, 1 refresco mediano y 1 hotdog grande.
+                    </p>
+                </div>
+                <div class="buttons__container text-center" style="width: 100%; height: 10%; background: #001397;">
+                    <div class="shopping">
+                        <i class="fa-solid fa-cart-shopping" style="color: #ffffff; width: 40px; height: 40px;" onclick="MostrarModalCombo3('250');"> </i>
+                    </div>
+                    <div class="texto__shopping">
+                        <p>Agregar al carrito</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-4">
+            <div class="card__container" style="height: 100vh; border-radius: 5px; border: 3px solid black;">
+                <div class="card__image" style="width: 100%;
+                                                height: 50%;
+                                                background-image: url('https://archivos-cms.cinecolombia.com/images/3/7/4/7/7473-3-esl-CO/Crispeta%20Grande.jpg');
+                                                background-repeat: no-repeat;
+                                                background-size: 100% 100%;
+                                                border: 1px solid black;"> </div>
+                <div class="title__container" style="width: 100%; height: 10%; color: white; background: #E30000; padding: 10px;">
+                    <h2 class="text-center">Palomitas grandes</h2>
+                </div>
+                <div class="info_container" style="width: 100%; height: 30%; color: white; background: #FF0000; padding: 10px;">
+                    <p>
+                        Precio: $120 pesos
+                        <br /><br />
+                        Descripcion: Bote grande de palomitas (puedes entre 4 sobores elegir el sabor).
+                    </p>
+                </div>
+                <div class="buttons__container text-center" style="width: 100%; height: 10%; background: #001397;">
+                    <div class="shopping">
+                        <i class="fa-solid fa-cart-shopping" style="color: #ffffff; width: 40px; height: 40px;" onclick="MostrarModalPalomitas('120');"> </i>
+                    </div>
+                    <div class="texto__shopping">
+                        <p>Agregar al carrito</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-4">
+            <div class="card__container" style="height: 100vh; border-radius: 5px; border: 3px solid black;">
+                <div class="card__image" style="width: 100%;
+                                                height: 50%;
+                                                background-image: url('https://media.istockphoto.com/id/1338285529/es/vector/telara%C3%B1a.jpg?s=612x612&w=0&k=20&c=lYSvqsY_cmbmnMEX8UuISuPMHxEbh8M48YNBBLZc2dI=');
+                                                background-repeat: no-repeat;
+                                                background-size: 100% 100%;
+                                                border: 1px solid black;"> </div>
+                <div class="title__container" style="width: 100%; height: 10%; color: white; background: #E30000; padding: 10px;">
+                    <h2 class="text-center">Refresco</h2>
+                </div>
+                <div class="info_container" style="width: 100%; height: 30%; color: white; background: #FF0000; padding: 10px;">
+                    <p>
+                        Precio: $200 pesos
+                        <br /><br />
+                        Descripcion: Baso grande (puedes seleccionar el sabor).
+                    </p>
+                </div>
+                <div class="buttons__container text-center" style="width: 100%; height: 10%; background: #001397;">
+                    <div class="shopping">
+                        <i class="fa-solid fa-cart-shopping" style="color: #ffffff; width: 40px; height: 40px;" onclick="MostrarModalRefresco('0');"> </i>
+                    </div>
+                    <div class="texto__shopping">
+                        <p>Agregar al carrito</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-4">
+            <div class="card__container" style="height: 100vh; border-radius: 5px; border: 3px solid black;">
+                <div class="card__image" style="width: 100%;
+                                                height: 50%;
+                                                background-image: url('https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/2c20d283979207.5d4cf69c38534.jpg');
+                                                background-repeat: no-repeat;
+                                                background-size: 100% 100%;
+                                                border: 1px solid black;"> </div>
+                <div class="title__container" style="width: 100%; height: 10%; color: white; background: #E30000; padding: 10px;">
+                    <h2 class="text-center">Nachos</h2>
+                </div>
+                <div class="info_container" style="width: 100%; height: 30%; color: white; background: #FF0000; padding: 10px;">
+                    <p>
+                        Precio: $250 pesos
+                        <br /><br />
+                        Descripcion: Bandeja de nachos (puedes seleccionar condimentos).
+                    </p>
+                </div>
+                <div class="buttons__container text-center" style="width: 100%; height: 10%; background: #001397;">
+                    <div class="shopping">
+                        <li class="fa-solid fa-cart-shopping" style="color: #ffffff; width: 40px; height: 40px;" onclick="MostrarModal('250');"> </li>
+                    </div>
+                    <div class="texto__shopping">
+                        <p>Agregar al carrito</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div id="modal" class="modal">
+        <div class="content__modal" style="position: relative;
+        background: blue;
+        margin: auto;
+        padding: 20px;
+        width: 60%;">
+        </div>
+    </div>
+
+
+</div>
+
+@section scripts{
+    <script>
+        // Ventana modal
+        var modal = document.getElementById("modal");
+        // Botón que abre el modal
+        // Hace referencia al elemento <span> que tiene la X que cierra la ventana
+        var span = document.getElementsByClassName("cerrar")[0];
+
+
+        // Cuando el usuario hace clic en el botón, se abre la ventana
+        function MostrarModal(precio) {
+            modal.style.display = "block";
+            modal.innerHTML =
+                '<div class="content__modal bg-secondary" style="position: relative;' +
+                'margin: auto;' +
+                'padding: 20px;' +
+                'width: 60 %; ">' +
+                '<button class="cerrar btn btn-danger" onclick="cerrarModal();">X</button>' +
+                '<h2 class="text-center"> Nachos </h2>' +
+                '<br>' +
+                '<center> <img src="https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/2c20d283979207.5d4cf69c38534.jpg" style="width: 30vh; height: 30vh; border-radius: 5px;"> </center>' +
+                '<br>' +
+                '<p class="text-center"> Selecciona los condimentos </p>' +
+                '<center>' +
+                "<input id='queso_nachos' type='checkbox' class='form-check-input' onchange='CalcularPrecioNachos(20,this)'> &nbsp; <label>  Queso </label> &nbsp;" +
+                "<input id='salsa_nachos' type='checkbox' class='form-check-input' onchange='CalcularPrecioNachos(30,this)'> &nbsp; <label>  Salsa </label> &nbsp;" +
+                "<input id='chile_nachos' type='checkbox' class='form-check-input' onchange='CalcularPrecioNachos(40,this)'> &nbsp; <label>  Chile </label> &nbsp;" +
+                '</center>' +
+
+                '<br>' +
+
+                '<div class="input-group mb-3">' +
+                '<div class="input-group-prepend" >' +
+                '<span class="input-group-text" > $ </span>' +
+                '</div>' +
+                '<input id="total__nachos" type = "text" class="form-control" aria-label="Amount(to the nearest dollar)" value="' + precio + '" readonly>' +
+                '<div class="input-group-append" >' +
+                '<span class="input-group-text" > .00 </span>' +
+                '</div>' +
+                '</div>' +
+
+                '<br>' +
+
+                '<center>' +
+                '<button class="btn btn-primary">Agregar</button>' +
+                '</center>' +
+
+                '</div>';
+        }
+
+
+
+        // Modal refresco
+        function MostrarModalRefresco(precio) {
+            modal.style.display = "block";
+            modal.innerHTML =
+                '<div class="content__modal bg-secondary" style="position: relative;' +
+                'margin: auto;' +
+                'padding: 20px;' +
+                'width: 60 %; ">' +
+                '<button class="cerrar btn btn-danger" onclick="cerrarModal();">X</button>' +
+                '<h2 class="text-center"> Refresco </h2>' +
+                '<br>' +
+                '<center> <img src="https://media.istockphoto.com/id/1338285529/es/vector/telara%C3%B1a.jpg?s=612x612&w=0&k=20&c=lYSvqsY_cmbmnMEX8UuISuPMHxEbh8M48YNBBLZc2dI=" style="width: 30vh; height: 30vh; border-radius: 5px;"> </center>' +
+                '<br>' +
+                '<p class="text-center"> Selecciona los condimentos </p>' +
+                '<center>' +
+                "<input id='cocacola' type='checkbox' class='form-check-input' > &nbsp; <label>  Cocacola </label> &nbsp;" +
+                "<input id='pepsi' type='checkbox' class='form-check-input' > &nbsp; <label>  Pepsi </label> &nbsp;" +
+                "<input id='fanta' type='checkbox' class='form-check-input' > &nbsp; <label>  Fanta </label> &nbsp;" +
+                '<br>' +
+                "<input type='checkbox' class='form-check-input' onchange='CalcularPrecioRefresco(20,this)'> &nbsp; <label>  Chico </label> &nbsp;" +
+                "<input type='checkbox' class='form-check-input' onchange='CalcularPrecioRefresco(30,this)'> &nbsp; <label>  Mediano </label> &nbsp;" +
+                "<input type='checkbox' class='form-check-input' onchange='CalcularPrecioRefresco(40,this)'> &nbsp; <label>  Grande </label> &nbsp;" +
+                '</center>' +
+
+                '<br>' +
+
+                '<div class="input-group mb-3">' +
+                '<div class="input-group-prepend" >' +
+                '<span class="input-group-text" > $ </span>' +
+                '</div>' +
+                '<input id="total__refresco" type = "text" class="form-control" aria-label="Amount(to the nearest dollar)" value="' + precio + '" readonly>' +
+                '<div class="input-group-append" >' +
+                '<span class="input-group-text" > .00 </span>' +
+                '</div>' +
+                '</div>' +
+
+                '<br>' +
+
+                '<center>' +
+                '<button class="btn btn-primary">Agregar</button>' +
+                '</center>' +
+
+                '</div>';
+        }
+
+
+
+        // Modal para palomitas
+        function MostrarModalPalomitas(precio, idTotal) {
+            modal.style.display = "block";
+            modal.innerHTML =
+                '<div class="content__modal bg-secondary" style="position: relative;' +
+                'margin: auto;' +
+                'padding: 20px;' +
+                'width: 60 %; ">' +
+                '<button class="cerrar btn btn-danger" onclick="cerrarModal();">X</button>' +
+                '<h2 class="text-center"> Palomitas </h2>' +
+                '<br>' +
+                '<center> <img src="https://archivos-cms.cinecolombia.com/images/3/7/4/7/7473-3-esl-CO/Crispeta%20Grande.jpg" style="width: 30vh; height: 30vh; border-radius: 5px;"> </center>' +
+                '<br>' +
+                '<p class="text-center"> Selecciona los condimentos </p>' +
+                '<center>' +
+                "<input id='queso_nachos' type='checkbox' class='form-check-input' onchange='CalcularPrecioPalomitas(5,this)'> &nbsp; <label>  Mantequilla </label> &nbsp;" +
+                "<input id='salsa_nachos' type='checkbox' class='form-check-input' onchange='CalcularPrecioPalomitas(10,this)'> &nbsp; <label>  Extra mantequilla </label> &nbsp;" +
+                "<input id='chile_nachos' type='checkbox' class='form-check-input' onchange='CalcularPrecioPalomitas(5,this)'> &nbsp; <label>  Chile </label> &nbsp;" +
+                "<input id='chile_nachos' type='checkbox' class='form-check-input' onchange='CalcularPrecioPalomitas(10,this)'> &nbsp; <label>  Extra chile </label> &nbsp;" +
+
+                '</center>' +
+                '<center>' +
+                "<input id='cocacola' type='checkbox' class='form-check-input' > &nbsp; <label>  Cocacola </label> &nbsp;" +
+                "<input id='pepsi' type='checkbox' class='form-check-input' > &nbsp; <label>  Pepsi </label> &nbsp;" +
+                "<input id='fanta' type='checkbox' class='form-check-input' > &nbsp; <label>  Fanta </label> &nbsp;" +
+                '<br>' +
+                "<input type='checkbox' class='form-check-input' onchange='CalcularPrecioRefresco(20,this)'> &nbsp; <label>  Chico </label> &nbsp;" +
+                "<input type='checkbox' class='form-check-input' onchange='CalcularPrecioRefresco(30,this)'> &nbsp; <label>  Mediano </label> &nbsp;" +
+                "<input type='checkbox' class='form-check-input' onchange='CalcularPrecioRefresco(40,this)'> &nbsp; <label>  Grande </label> &nbsp;" +
+                '</center>' +
+                '<br>' +
+
+                '<div class="input-group mb-3">' +
+                '<div class="input-group-prepend" >' +
+                '<span class="input-group-text" > $ </span>' +
+                '</div>' +
+                '<input id="total__palomitas" type = "text" class="form-control" aria-label="Amount(to the nearest dollar)" value="' + precio + '" readonly>' +
+                '<div class="input-group-append" >' +
+                '<span class="input-group-text" > .00 </span>' +
+                '</div>' +
+                '</div>' +
+
+                '<br>' +
+
+                '<center>' +
+                '<button class="btn btn-primary">Agregar</button>' +
+                '</center>' +
+
+                '</div>';
+        }
+
+        // Modal para combo 1 y 2
+        function MostrarModalCombo12(precio, img) {
+            modal.style.display = "block";
+            modal.innerHTML =
+                '<div class="content__modal bg-secondary" style="position: relative;' +
+                'margin: auto;' +
+                'padding: 20px;' +
+                'width: 60 %; ">' +
+                '<button class="cerrar btn btn-danger" onclick="cerrarModal();">X</button>' +
+                '<h2 class="text-center"> Palomitas </h2>' +
+                '<br>' +
+                '<center> <img src="'+img+'" style="width: 30vh; height: 30vh; border-radius: 5px;"> </center>' +
+                '<br>' +
+                '<p class="text-center"> Selecciona los condimentos </p>' +
+                '<center>' +
+
+                "<h3 class='text-center'>Refresco</h3>" +
+                "<hr>" +
+                "<input id='queso_nachos' type='checkbox' class='form-check-input' onchange='CalcularPrecioRefresco1(10,this)'> &nbsp; <label>  Cocacola </label> &nbsp;" +
+                "<input id='salsa_nachos' type='checkbox' class='form-check-input' onchange='CalcularPrecioRefresco1(10,this)'> &nbsp; <label>  Pepsi </label> &nbsp;" +
+                "<input id='chile_nachos' type='checkbox' class='form-check-input' onchange='CalcularPrecioRefresco1(10,this)'> &nbsp; <label>  Fanta </label> &nbsp;" +
+                "<hr>" +
+                "<h3 class='text-center'>Palomitas</h3>" +
+                "<hr>" +
+                "<input id='queso_nachos' type='checkbox' class='form-check-input' onchange='CalcularPrecioPalomitas1(5,this)'> &nbsp; <label>  Mantequilla </label> &nbsp;" +
+                "<input id='salsa_nachos' type='checkbox' class='form-check-input' onchange='CalcularPrecioPalomitas1(10,this)'> &nbsp; <label>  Extra mantequilla </label> &nbsp;" +
+                "<input id='chile_nachos' type='checkbox' class='form-check-input' onchange='CalcularPrecioPalomitas1(5,this)'> &nbsp; <label>  Chile </label> &nbsp;" +
+                "<input id='chile_nachos' type='checkbox' class='form-check-input' onchange='CalcularPrecioPalomitas1(10,this)'> &nbsp; <label>  Extra chile </label> &nbsp;" +
+
+
+                '</center>' +
+
+                '<br>' +
+
+                '<div class="input-group mb-3">' +
+                '<div class="input-group-prepend" >' +
+                '<span class="input-group-text" > $ </span>' +
+                '</div>' +
+                '<input id="total" type = "text" class="form-control" aria-label="Amount(to the nearest dollar)" value="' + precio + '" readonly>' +
+                '<div class="input-group-append" >' +
+                '<span class="input-group-text" > .00 </span>' +
+                '</div>' +
+                '</div>' +
+
+                '<br>' +
+
+                '<center>' +
+                '<button class="btn btn-primary">Agregar</button>' +
+                '</center>' +
+
+                '</div>';
+        }
+
+        // Modal para combo 3
+        function MostrarModalCombo3(precio) {
+            modal.style.display = "block";
+            modal.innerHTML =
+                '<div class="content__modal bg-secondary" style="position: relative;' +
+                'margin: auto;' +
+                'padding: 20px;' +
+                'width: 60 %; ">' +
+                '<button class="cerrar btn btn-danger" onclick="cerrarModal();">X</button>' +
+                '<h2 class="text-center"> Palomitas </h2>' +
+                '<br>' +
+                '<center> <img src="http://www.hotelesyresorts.coomeva.com.co/imagenes/galeria/img106145.jpg" style="width: 30vh; height: 30vh; border-radius: 5px;"> </center>' +
+                '<br>' +
+                '<p class="text-center"> Selecciona los condimentos </p>' +
+                '<center>' +
+
+                "<h3 class='text-center'>Refresco</h3>" +
+                "<hr>" +
+                "<input id='queso_nachos' type='checkbox' class='form-check-input' onchange='CalcularPrecioRefresco1(10,this)'> &nbsp; <label>  Cocacola </label> &nbsp;" +
+                "<input id='salsa_nachos' type='checkbox' class='form-check-input' onchange='CalcularPrecioRefresco1(10,this)'> &nbsp; <label>  Pepsi </label> &nbsp;" +
+                "<input id='chile_nachos' type='checkbox' class='form-check-input' onchange='CalcularPrecioRefresco1(10,this)'> &nbsp; <label>  Fanta </label> &nbsp;" +
+                "<hr>" +
+                "<h3 class='text-center'>Palomitas</h3>" +
+                "<hr>" +
+                "<input id='queso_nachos' type='checkbox' class='form-check-input' onchange='CalcularPrecioPalomitas1(5,this)'> &nbsp; <label>  Mantequilla </label> &nbsp;" +
+                "<input id='salsa_nachos' type='checkbox' class='form-check-input' onchange='CalcularPrecioPalomitas1(10,this)'> &nbsp; <label>  Extra mantequilla </label> &nbsp;" +
+                "<input id='chile_nachos' type='checkbox' class='form-check-input' onchange='CalcularPrecioPalomitas1(5,this)'> &nbsp; <label>  Chile </label> &nbsp;" +
+                "<input id='chile_nachos' type='checkbox' class='form-check-input' onchange='CalcularPrecioPalomitas1(10,this)'> &nbsp; <label>  Extra chile </label> &nbsp;" +
+
+                "<hr>" +
+                "<h3 class='text-center'>Hotdog</h3>" +
+                "<hr>" +
+                "<input id='queso_nachos' type='checkbox' class='form-check-input' onchange='CalcularPrecioHotdog1(20,this)'> &nbsp; <label>  Queso </label> &nbsp;" +
+                "<input id='salsa_nachos' type='checkbox' class='form-check-input' onchange='CalcularPrecioHotdog1(30,this)'> &nbsp; <label>  Salsa </label> &nbsp;" +
+                "<input id='chile_nachos' type='checkbox' class='form-check-input' onchange='CalcularPrecioHotdog1(40,this)'> &nbsp; <label>  Chile </label> &nbsp;" +
+                "<input id='chile_nachos' type='checkbox' class='form-check-input' onchange='CalcularPrecioHotdog1(50,this)'> &nbsp; <label>  Mostaza </label> &nbsp;" +
+
+
+
+                '</center>' +
+
+                '<br>' +
+
+                '<div class="input-group mb-3">' +
+                '<div class="input-group-prepend" >' +
+                '<span class="input-group-text" > $ </span>' +
+                '</div>' +
+                '<input id="total" type = "text" class="form-control" aria-label="Amount(to the nearest dollar)" value="' + precio + '" readonly>' +
+                '<div class="input-group-append" >' +
+                '<span class="input-group-text" > .00 </span>' +
+                '</div>' +
+                '</div>' +
+
+                '<br>' +
+
+                '<center>' +
+                '<button class="btn btn-primary">Agregar</button>' +
+                '</center>' +
+
+                '</div>';
+        }
+
+        // Si el usuario hace clic en la x, la ventana se cierra
+        function cerrarModal() {
+            modal.style.display = "none";
+        }
+        // Si el usuario hace clic fuera de la ventana, se cierra.
+        window.addEventListener("click", function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        });
+
+        function CalcularPrecioNachos(precio, checkBox) {
+            var Total = document.getElementById("total__nachos");
+
+            if (checkBox.checked) {
+                Total.value = parseFloat(Total.value) + parseFloat(precio);
+            } else {
+                if (parseFloat(Total.value) <= 0) {
+                    Total.value = 0;
+                } else {
+                    Total.value = parseFloat(Total.value) - parseFloat(precio);
+                }
+            }
+
+        }
+
+        function CalcularPrecioRefresco(precio, checkBox) {
+            var Total = document.getElementById("total__refresco");
+
+            if (checkBox.checked) {
+                Total.value = parseFloat(Total.value) + parseFloat(precio);
+            } else {
+                if (parseFloat(Total.value) <= 0) {
+                    Total.value = 0;
+                } else {
+                    Total.value = parseFloat(Total.value) - parseFloat(precio);
+                }
+            }
+
+        }
+
+
+        function CalcularPrecioPalomitas(precio, checkBox) {
+            var Total = document.getElementById("total__palomitas");
+
+            if (checkBox.checked) {
+                if (parseFloat(Total.value) == 120) {
+                    Total.value = parseFloat(Total.value) + parseFloat(precio);
+                }
+            } else {
+                if (parseFloat(Total.value) <= 0) {
+                    Total.value = 120;
+                } else {
+                    Total.value = parseFloat(Total.value) - parseFloat(precio);
+                }
+            }
+
+            if (!checkBox.checked && parseFloat(Total.value) != 120) {
+                Total.value = parseFloat(Total.value) + parseFloat(precio);
+
+            }
+        }
+
+        function CalcularPrecioCombo(precio, checkBox) {
+            var Total = document.getElementById("total");
+
+            if (checkBox.checked) {
+                    Total.value = parseFloat(Total.value) + parseFloat(precio);
+            } else {
+                if (parseFloat(Total.value) <= 0) {
+                    Total.value = 0;
+                } else {
+                    Total.value = parseFloat(Total.value) - parseFloat(precio);
+                }
+            }
+
+        }
+
+
+
+
+        function CalcularPrecioHotdog1(precio, checkBox) {
+            var Total = document.getElementById("total");
+
+            if (checkBox.checked) {
+                Total.value = parseFloat(Total.value) + parseFloat(precio);
+            } else {
+                if (parseFloat(Total.value) <= 0) {
+                    Total.value = 0;
+                } else {
+                    Total.value = parseFloat(Total.value) - parseFloat(precio);
+                }
+            }
+
+        }
+
+        function CalcularPrecioRefresco1(precio, checkBox) {
+            var Total = document.getElementById("total");
+
+            if (checkBox.checked) {
+                Total.value = parseFloat(Total.value) + parseFloat(precio);
+            } else {
+                if (parseFloat(Total.value) <= 0) {
+                    Total.value = 0;
+                } else {
+                    Total.value = parseFloat(Total.value) - parseFloat(precio);
+                }
+            }
+
+        }
+
+
+        function CalcularPrecioPalomitas1(precio, checkBox) {
+            var Total = document.getElementById("total");
+
+
+            if (checkBox.checked) {
+                    Total.value = parseFloat(Total.value) + parseFloat(precio);
+            } else {
+                if (parseFloat(Total.value) <= 0) {
+                    Total.value = 120;
+                } else {
+                    Total.value = parseFloat(Total.value) - parseFloat(precio);
+                }
+            }
+
+
+        }
+    </script>
+}
+

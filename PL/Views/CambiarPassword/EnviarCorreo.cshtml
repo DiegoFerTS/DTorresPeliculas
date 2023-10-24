@@ -1,0 +1,51 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+
+
+@{
+    Layout = null;
+}
+
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+<link rel="stylesheet" href="~/css/Login.css" />
+
+<div class="section__container" id="section__container">
+    @using (Html.BeginForm("EnviarCorreo", "CambiarPassword", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <div class="login__container">
+            <div class="title bg-dark text-center">
+                <h3> Enviar correo </h3>
+            </div>
+
+            <div class="inputs bg-secondary">
+                <label for="txtCorreo">Correo:</label>
+                <br />
+                <input type="text" class="form-control" id="correo" name="correo" placeholder="Ingresa tu correo">
+
+                <br /><br />
+
+            </div>
+            <div class="buttons bg-dark" style="padding-top: 29px;">
+                <button class="btn btn-danger">Enviar</button>
+            </div>
+
+            <div class="hiperlinks bg-dark" style="padding-top: 20px; padding-bottom: 34px;">
+                <a href="@Url.Action("Login", "Login")">Regresar al inicio</a>
+            </div>
+        </div>
+    }
+
+    <div class="register__container">
+        <div class="title bg-dark text-center">
+            <h3>Cambio de contraseña</h3>
+        </div>
+        <div class="text text-center bg-dark">
+            <label>Para el cambio de contraseña debes ingresar el correo electronico con el cual te registraste, posteriormente recibiras un correo para proceder con el cambio de contraseña.</label>
+        </div>
+    </div>
+</div>
+

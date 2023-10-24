@@ -1,0 +1,220 @@
+﻿@model ML.Cine
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<style>
+    #map {
+        height: 70vh;
+        width: 100%;
+        border-radius: 5px;
+    }
+
+</style>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+
+<h2 class="text-center">Formulario cine</h2>
+<hr />
+<br />
+
+<div class="container">
+    @using (Html.BeginForm("Form", "Cine", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+
+        @Html.HiddenFor(model => model.Id)
+
+
+        <div class="row">
+            <div class="col-4">
+                <label for="nombreCine">Nombre del cine:</label>
+                @Html.TextBoxFor(model => model.Nombre, new{@class="form-control", @id="nombreCine"})
+            </div>
+            <div class="col-4">
+                <label for="ventas">Ventas:</label>
+                @Html.TextBoxFor(model => model.Ventas, new{@class="form-control", @id="ventas"})
+            </div>
+            <div class="col-4">
+                <label for="zona">Zona:</label>
+                @Html.TextBoxFor(model => model.Zona.Id, new{@class="form-control", @id="zona"})
+            </div>
+        </div>
+
+        <br />
+
+        <div class="row">
+            <div class="col-12">
+                <label for="txt__direccion">Direccion:</label>
+                @Html.TextBoxFor(model => model.Direccion, new{@class="form-control", @id="txt__direccion", @placeholder="Selecciona un punto en el mapa.", @readonly="readonly"})
+            </div>
+        </div>
+
+        <br />
+
+        <br />
+
+        <div id="map"></div>
+
+        <br />
+        <br />
+
+        <center>
+            @if (Model.Id == 0 || Model.Id == null)
+            {
+                <button class="btn btn-primary" type="submit">Registrar</button>
+            }
+            else
+            {
+                <button class="btn btn-primary" type="submit">Actualizar</button>
+            }
+        </center>
+    }
+
+    <script>
+        (g => { var h, a, k, p = "The Google Maps JavaScript API", c = "google", l = "importLibrary", q = "__ib__", m = document, b = window; b = b[c] || (b[c] = {}); var d = b.maps || (b.maps = {}), r = new Set, e = new URLSearchParams, u = () => h || (h = new Promise(async (f, n) => { await (a = m.createElement("script")); e.set("libraries", [...r] + ""); for (k in g) e.set(k.replace(/[A-Z]/g, t => "_" + t[0].toLowerCase()), g[k]); e.set("callback", c + ".maps." + q); a.src = `https://maps.${c}apis.com/maps/api/js?` + e; d[q] = f; a.onerror = () => h = n(Error(p + " could not load.")); a.nonce = m.querySelector("script[nonce]")?.nonce || ""; m.head.append(a) })); d[l] ? console.warn(p + " only loads once. Ignoring:", g) : d[l] = (f, ...n) => r.add(f) && u().then(() => d[l](f, ...n)) })
+            ({ key: "AIzaSyCSKBDdPPlfca_zTwyxKiicRQn1qfgRjLw", v: "beta" });</script>
+
+
+    <script src="../wwwroot/lib/jquery/dist/jquery.js"></script>
+
+    <script>
+        // Initialize and add the map
+        let map;
+        // Converit el maker en variable global para poder alterarla libremente
+        var maker;
+
+        async function initMap() {
+            // The location of Uluru
+            var position = { lat: -25.344, lng: 131.031 };
+            // Request needed libraries.
+            const { Map } = await google.maps.importLibrary("maps");
+            const { AdvancedMarkerElement } = await google.maps.importLibrary("marker");
+
+            // The map, centered at Uluru
+            map = new Map(document.getElementById("map"), {
+                zoom: 4,
+                center: position,
+                mapId: "DEMO_MAP_ID",
+            });
+
+            // The marker, positioned at Uluru
+            marker = new AdvancedMarkerElement({
+                map: map,
+                position: position,
+                title: "Uluru",
+            });
+
+
+            // muestra el globo de informacion
+            let infoWindow = new google.maps.InfoWindow({
+                content: "Presiona la localizacion",
+                position: position
+            });
+
+
+            // se selecciona el input o textbox donde se almacena la informacion
+            var textDireccion = document.getElementById("txt__direccion").value;
+
+
+            // si tiene informacion procesarla para marcar el nuevo marcador o marker
+            if (textDireccion != null || textDireccion != "") {
+
+                // se crea un objecto heocoder
+                var geocoder = new google.maps.Geocoder();
+
+
+                // a la funcion geocoder se le envia un parametro y se procesan los resultados y estatus en una funcion de 2 parametros (results, status)
+                // el parametro que se len envia es la diraccion que tiene el input de direccion y el parametro es la key address
+                geocoder.geocode({
+                    "address": textDireccion
+                }, function (results, status) {
+
+
+
+                    // si se obtuvo una respuesta buena por parte del servicio de la api de google maps
+                    if (status == google.maps.GeocoderStatus.OK) {
+
+                        // Elimina el maker anterior del a variable maker
+                        marker.setMap(null);
+
+
+                        // se obtienen la latitud y longitud de la direccions
+                        var latitudActual = results[0].geometry.location.lat();
+                        var longitudActual = results[0].geometry.location.lng();
+
+                        // imprimimos los valores por si la dudas ajjas
+                        console.log(textDireccion);
+                        console.log(latitudActual);
+                        console.log(longitudActual);
+
+                        // actualizamos los valores de la posicion por la latitud y longitud de la direccion
+                        position = { lat: latitudActual, lng: longitudActual };
+
+
+                        // cargamos un nuevo mapa con la localizacion de la direccion
+                        map = new Map(document.getElementById("map"), {
+                            zoom: 4,
+                            center: position,
+                            mapId: "DEMO_MAP_ID",
+                        });
+
+
+                                        //posicionamos el mker de la direccion
+                        marker = new google.maps.Marker({
+                            map: map,
+                            position: position,
+                            title: textDireccion,
+                        });
+
+                        // ponemos la vista del mapa en la direccion
+                        map.panTo(position);
+                    }
+
+
+
+
+
+
+
+
+                });
+            }
+
+            infoWindow.open(map);
+
+            // Obtener la direccion y agregarla al input
+
+            google.maps.event.addListener(map, 'click', function (event) {
+                var geocoder = new google.maps.Geocoder();
+
+                geocoder.geocode({
+                    'latLng': event.latLng
+                }, function (results, status) {
+                    if (status == google.maps.GeocoderStatus.OK) {
+                        if (results[0]) {
+                            $("#txt__direccion").val(results[0].formatted_address);
+
+                            // Elimina el maker anterior
+                            marker.setMap(null);
+
+                            // Se obtiene la nueva pocision cuando damos click en algun lado del mapa
+                            position = { lat: event.latLng.lat(), lng: event.latLng.lng() };
+
+                            // Se crea mi nuevo marcador con la nueva posicion de acuerdo a las coordenadas de arriba
+                            marker = new google.maps.Marker({
+                                map: map,
+                                position: position,
+                                title: "Marcaste aqui.",
+                            });
+                        }
+                    }
+                });
+            });
+
+        }
+
+        initMap();
+    </script>
+</div>

@@ -1,0 +1,116 @@
+﻿@model ML.Usuario
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    Layout = null;
+}
+
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+<link rel="stylesheet" href="~/css/Login.css" />
+
+<div class="section__container" id="section__container">
+    @using (Html.BeginForm("Login", "Login", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+    <div class="login__container">
+        <div class="title bg-dark text-center">
+            <h3>Inicio de sesion</h3>
+        </div>
+        
+            <div class="inputs bg-secondary">
+                <label for="txtCorreo">Correo:</label>
+                <br />
+                @Html.TextBoxFor(Model => Model.Correo, new{@class="form-control", @type="text", @id="txtCorreo", @placeholder="Ingresa tu correo"})
+
+                <br />
+
+                <label for="txtPassword">Password:</label>
+                <br />
+                @Html.TextBoxFor(Model => Model.Password, new{@class="form-control", @type="password", @id="txtCorreo", @placeholder="Ingresa tu contraseña"})
+
+            </div>
+            <div class="buttons bg-dark">
+                <button class="btn btn-danger">Iniciar</button>
+            </div>
+        
+        <div class="hiperlinks bg-dark">
+            <a href="@Url.Action("EnviarCorreo", "CambiarPassword")">¿Olvidaste tu contraseña?. da click aqui.</a>
+        </div>
+    </div>
+    }
+
+    <div class="register__container">
+        <div class="title bg-dark text-center">
+            <h3>Registro</h3>
+        </div>
+        <div class="text text-center bg-dark">
+            <label>¿Aun no tienes una cuenta?, registrate dando clic al siguiente boton.</label>
+            <button class="btn btn-primary" onclick="MostrarRegistro();">Registrar</button>
+        </div>
+    </div>
+</div>
+
+
+<div class="section__container2" id="section__container2" style="display: none;">
+
+    <div class="login__container">
+        <div class="title bg-dark text-center">
+            <h3>Iniciar</h3>
+        </div>
+        <div class="text text-center bg-dark">
+            <label>¿Ya tienes una cuenta?, da clic aqui para iniciar sesion.</label>
+            <button class="btn btn-danger" onclick="MostrarRegistro();">Iniciar sesion</button>
+
+        </div>
+    </div>
+
+    @using (Html.BeginForm("Form", "Login", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+    <div class="register__container">
+        
+        <div class="title bg-dark text-center">
+            <h3>Registro</h3>
+        </div>
+        
+            <div class="inputs bg-secondary">
+                <label for="txtCorreo">Username:</label>
+                <br />
+                @Html.TextBoxFor(Model => Model.Username, new{@class="form-control", @type="text", @id="txtUsername", @placeholder="Ingresa tu username"})
+
+                <label for="txtPassword">Nombre:</label>
+                <br />
+                @Html.TextBoxFor(Model => Model.Nombre, new{@class="form-control", @type="text", @id="txtNombre", @placeholder="Ingresa tu nombre"})
+
+                <label for="txtPassword">Correo:</label>
+                <br />
+                @Html.TextBoxFor(Model => Model.Correo, new{@class="form-control", @type="text", @id="txtEmail", @placeholder="Ingresa tu correo"})
+
+                <label for="txtPassword">Contraseña:</label>
+                <br />
+                <input class="form-control" type="password" id="password" name="password" placeholder="Ingresa tu contraseña" />
+
+            </div>
+            <div class="buttons bg-dark">
+                <button class="btn btn-primary" type="submit">Registrar</button>
+            </div>
+        
+    </div>
+    }
+</div>
+
+
+<script>
+    function MostrarRegistro() {
+        var contenedor1 = document.getElementById("section__container");
+        var contenedor2 = document.getElementById("section__container2");
+
+
+        if (contenedor1.style.display === "none") {
+            contenedor1.style.display = "block";
+            contenedor2.style.display = "none";
+        } else {
+            contenedor1.style.display = "none";
+            contenedor2.style.display = "block";
+        }
+    }
+</script>
